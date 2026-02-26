@@ -16,5 +16,7 @@
   color: black;
   border-radius: 2rem;
   padding: 1rem;
-  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

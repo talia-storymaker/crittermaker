@@ -42,6 +42,7 @@ a {
 }
 
 /* basics */
+
 .page {
   padding: 1rem;
 }
@@ -59,4 +60,79 @@ a {
 
 .subtitle {
   font-style: italic;
+}
+
+/* header/nav */
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  font-size: 1.25rem;
+}
+
+.logo {
+  font-size: 2rem;
+}
+
+.nav-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+/* form */
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+input, button {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--background);
+  background: var(--foreground);
+  color: var(--background);
+  font-family: inherit;
+  cursor: pointer;
+  position: relative;
+}
+
+input:hover::before, 
+input:focus::before, 
+button:hover::before, 
+button:focus::before,
+.subtle-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+  opacity: 0.25;
+}
+
+/* utility */
+
+.subtle-bg {
+  position: relative;
+}
+
+.subtle-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--foreground);
+  opacity: 0.25;
+  z-index: -1;
 }

@@ -3,7 +3,6 @@ import sty from "./page.module.css";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useState } from "react";
 import Critter from "./components/Critter";
-import Link from "next/link";
 import { OrbitControls } from "@react-three/drei";
 
 export default function Home() {
@@ -29,12 +28,15 @@ export default function Home() {
       return "Critter";
     }
   });
+  const [showSavedStatus, setShowSavedStatus] = useState(false);
 
   function saveCritter(name: string, mainColor: string) {
     try {
       const critters = JSON.parse(localStorage.getItem("critters") || "[]");
       critters.push({ name, mainColor });
       localStorage.setItem("critters", JSON.stringify(critters));
+      setShowSavedStatus(true);
+      setTimeout(() => setShowSavedStatus(false), 2000);
     } catch (error) {
       console.error("Failed to save critter:", error);
     }
@@ -89,8 +91,9 @@ export default function Home() {
                 onChange={(e) => setMainColor(e.target.value)}
               />
             </label>
-            <button onClick={() => saveCritter(name, mainColor)}>Save</button>
-            <Link href="/your-critters">View Your Critters</Link>
+            <button onClick={() => saveCritter(name, mainColor)}>
+              Save{showSavedStatus ? "d!" : ""}
+            </button>
           </form>
         </div>
       </main>
