@@ -1,23 +1,44 @@
 "use client";
 import sty from "./page.module.css";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState } from "react";
 import Critter from "./components/Critter";
+import Link from "next/link";
+import { OrbitControls } from "@react-three/drei";
 
 export default function Home() {
   const [mainColor, setMainColor] = useState(() => {
     try {
-      return localStorage.getItem("mainColor") ?? "#555";
+      const critters = JSON.parse(localStorage.getItem("critters") || "[]");
+      if (critters.length) {
+        return critters[critters.length - 1].mainColor;
+      }
+      return "#555";
     } catch {
       return "#555";
     }
   });
-
-  useEffect(() => {
+  const [name, setName] = useState(() => {
     try {
-      localStorage.setItem("mainColor", mainColor);
-    } catch {}
-  }, [mainColor]);
+      const critters = JSON.parse(localStorage.getItem("critters") || "[]");
+      if (critters.length) {
+        return critters[critters.length - 1].name;
+      }
+      return "Critter";
+    } catch {
+      return "Critter";
+    }
+  });
+
+  function saveCritter(name: string, mainColor: string) {
+    try {
+      const critters = JSON.parse(localStorage.getItem("critters") || "[]");
+      critters.push({ name, mainColor });
+      localStorage.setItem("critters", JSON.stringify(critters));
+    } catch (error) {
+      console.error("Failed to save critter:", error);
+    }
+  }
 
   return (
     <div className="page">
@@ -44,18 +65,32 @@ export default function Home() {
               intensity={Math.PI} 
               castShadow 
             />
+            <OrbitControls />
             <Suspense fallback={null}>
               <Critter mainColor={mainColor} />
             </Suspense>
           </Canvas>
           <form className={sty.controls}>
-            <label htmlFor="main-color">Main Color</label>
-            <input
-              type="color"
-              id="main-color"
-              value={mainColor}
-              onChange={(e) => setMainColor(e.target.value)}
-            />
+            <label>
+              Name
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
+            <label>
+              Main Color
+              <input
+                type="color"
+                id="main-color"
+                value={mainColor}
+                onChange={(e) => setMainColor(e.target.value)}
+              />
+            </label>
+            <button onClick={() => saveCritter(name, mainColor)}>Save</button>
+            <Link href="/your-critters">View Your Critters</Link>
           </form>
         </div>
       </main>
