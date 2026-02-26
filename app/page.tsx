@@ -46,8 +46,10 @@ export default function Home() {
     <div className="page">
       <main className="main">
         <div className="header">
-          <h1 className="title">3D CritterMaker</h1>
-          <div className="subtitle">Inspired by Animal Crossing</div>
+          <h1>
+            3D CritterMaker 
+            <div className="subtitle">Inspired by Animal Crossing</div>
+          </h1>
         </div>
         <div className={sty.critterContainer}>
           <Canvas 
