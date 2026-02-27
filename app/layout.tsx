@@ -16,7 +16,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <header className="header subtle-bg">
-          <Link className="logo" href="/">3D CritterMaker</Link>
+          <Link className="logo" href="/">
+            3D CritterMaker
+          </Link>
           <nav>
             <ul className="nav-list">
               <li>
@@ -29,6 +31,26 @@ export default function RootLayout({
           </nav>
         </header>
         {children}
+        <footer className="subtle-bg">
+          <div className="footer-inner">
+            <p>
+              Enjoy customizing 3D chibi cartoon animal characters inspired by
+              Nintendo's Animal Crossing series! You can customize various
+              options and save your critters.
+            </p>
+            <p>
+              This is a fan project and not endorsed by Nintendo. No copyright
+              infringement intended.
+            </p>
+            <p>
+              Created by{" "}
+              <Link href="https://www.taliadegisi.com/" target="_blank">
+                Talia Hatfield
+              </Link>
+              .
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );

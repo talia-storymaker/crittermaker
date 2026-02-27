@@ -1,14 +1,16 @@
 /* resets, color scheme */
 
 :root {
-  --background: #ffffff;
-  --foreground: #590995;
+  --light: #ededed;
+  --dark: #590995;
+  --background: var(--light);
+  --foreground: var(--dark);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #590995;
-    --foreground: #ededed;
+    --background: var(--dark);
+    --foreground: var(--light);
   }
 }
 
@@ -61,12 +63,29 @@ a {
 
 h1 {
   margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
 }
 
 .subtitle {
   font-style: italic;
   font-size: 1rem;
   font-weight: normal;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .subtitle {
+    position: relative;
+    top: 3px;
+  }
 }
 
 /* header/nav */
@@ -77,11 +96,11 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 .logo {
-  font-size: 2rem;
+  font-size: 1.25rem;
 }
 
 .nav-list {
@@ -113,15 +132,34 @@ input, button {
   background: var(--foreground);
   color: var(--background);
   font-family: inherit;
-  cursor: pointer;
   position: relative;
+}
+
+button, input[type="color"] {
+  cursor: pointer;
+}
+
+input[type="text"] {
+  background: var(--light);
+  border-color: var(--dark);
+  color: var(--dark);
+}
+
+input[type="text"]:hover,
+input[type="text"]:focus {
+  background: #fff;
+}
+
+input[type="color"] {
+  padding: 0;
+  background: transparent;
+  border-width: 0;
 }
 
 input:hover::before, 
 input:focus::before, 
 button:hover::before, 
-button:focus::before,
-.subtle-bg::before {
+button:focus::before {
   content: "";
   position: absolute;
   top: 0;
@@ -129,8 +167,23 @@ button:focus::before,
   width: 100%;
   height: 100%;
   background: var(--background);
-  opacity: 0.25;
-  z-index: -1;
+  opacity: 0.2;
+}
+
+/* footer */
+
+footer {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-inner {
+  max-width: 70rem;
+}
+
+.footer-inner p {
+  margin: 0.5rem 0;
 }
 
 /* utility */
@@ -147,6 +200,6 @@ button:focus::before,
   width: 100%;
   height: 100%;
   background: var(--foreground);
-  opacity: 0.25;
+  opacity: 0.1;
   z-index: -1;
 }
