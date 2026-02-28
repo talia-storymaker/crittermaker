@@ -188,6 +188,10 @@ footer {
 
 /* utility */
 
+.display-none {
+  display: none;
+}
+
 .subtle-bg {
   position: relative;
 }
