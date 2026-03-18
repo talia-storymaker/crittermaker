@@ -64,6 +64,7 @@ export default function CritterGrid() {
               </Suspense>
             </Canvas>
             <button onClick={() => deleteCritter(index)}>Delete</button>
+            <Link href={`/?critterindex=${index}`} className="button">Load</Link>
           </div>
         ),
       )}

@@ -125,7 +125,7 @@ label {
   gap: 0.5rem;
 }
 
-input, button {
+input, button, .button {
   border-radius: 0.5rem;
   padding: 0.5rem;
   border: 1px solid var(--background);
@@ -133,6 +133,8 @@ input, button {
   color: var(--background);
   font-family: inherit;
   position: relative;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
 button, input[type="color"] {
@@ -159,7 +161,9 @@ input[type="color"] {
 input:hover::before, 
 input:focus::before, 
 button:hover::before, 
-button:focus::before {
+button:focus::before,
+.button:hover::before, 
+.button:focus::before {
   content: "";
   position: absolute;
   top: 0;
