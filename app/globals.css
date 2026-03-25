@@ -137,6 +137,11 @@ input, button, .button {
   font-size: 1rem;
 }
 
+input[disabled], button[disabled] {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
 button, input[type="color"] {
   cursor: pointer;
 }
@@ -172,6 +177,11 @@ button:focus::before,
   height: 100%;
   background: var(--background);
   opacity: 0.2;
+}
+
+input[disabled]::before, 
+button[disabled]::before {
+  content: none
 }
 
 /* footer */
