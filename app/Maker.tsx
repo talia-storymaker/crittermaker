@@ -32,9 +32,9 @@ const Maker: React.FC = () => {
           };
         }
       }
-      return { name: "Critter", mainColor: "#555" };
+      return { name: "Critter", mainColor: "#fff" };
     } catch {
-      return { name: "Critter", mainColor: "#555" };
+      return { name: "Critter", mainColor: "#fff" };
     }
   });
   const [showSavedStatus, setShowSavedStatus] = useState(false);
@@ -93,7 +93,7 @@ const Maker: React.FC = () => {
       <main className="main">
         <h1>
           <div>3D CritterMaker</div>
-          <div className="subtitle">Inspired by Animal Crossing</div>
+          <div className="subtitle">aka Animal Crossing Villager NPC Maker</div>
         </h1>
         <div className={sty.critterContainer}>
           <Canvas

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "3D CritterMaker",
-  description: "Create your own 3D critters inspired by Animal Crossing!",
+  description: "Create your own 3D animal villagers in the Animal Crossing New Horizons style, right here in your browser - no app download needed!",
 };
 
 export default function RootLayout({
@@ -34,9 +34,7 @@ export default function RootLayout({
         <footer className="subtle-bg">
           <div className="footer-inner">
             <p>
-              Enjoy customizing 3D chibi cartoon animal characters inspired by
-              Nintendo's Animal Crossing series! You can customize various
-              options and save your critters.
+              Create your own 3D animal villagers in the Animal Crossing New Horizons style, right here in your browser - no app download needed!
             </p>
             <p>
               This is a fan project and not endorsed by Nintendo. No copyright
