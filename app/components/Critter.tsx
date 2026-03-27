@@ -79,7 +79,7 @@ function Critter({ mainColor = "#fff" }: Props) {
   }, [mainColor]);
 
   return (
-    <group ref={groupRef} position={[0, -7, 0]} receiveShadow castShadow />
+    <group ref={groupRef} position={[0, -7.75, 0]} receiveShadow castShadow />
   );
 }
 

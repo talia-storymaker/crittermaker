@@ -3,7 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "3D CritterMaker",
+  title: "Design Animal Crossing Villagers in 3D",
   description: "Create your own 3D animal villagers in the Animal Crossing New Horizons style, right here in your browser - no app download needed!",
 };
 

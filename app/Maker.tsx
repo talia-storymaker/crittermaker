@@ -101,7 +101,7 @@ const Maker: React.FC = () => {
             className={sty.critter}
             style={{ width: "30rem", height: "35rem" }}
             camera={{
-              position: [0, 0, 10],
+              position: [0, 1.5, 10],
             }}
             shadows
           >
