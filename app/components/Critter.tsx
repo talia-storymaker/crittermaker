@@ -13,7 +13,13 @@ function Critter({ mainColor = "#fff" }: Props) {
     const manager = new THREE.LoadingManager();
 
     const loader = new FBXLoader(manager);
-    loader.setPath("/models/");
+    loader.setPath("/models/cat/");
+    manager.setURLModifier((url) => {
+      if (url.endsWith(".png")) {
+        return url.replace("models/cat", "models/cat/textures/tangy-normalized-default");
+      }
+      return url;
+    })
     loader.load("Cat.fbx", (model) => {
       if (groupRef.current) {
         groupRef.current.clear();
