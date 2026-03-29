@@ -1,12 +1,19 @@
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { EyeVariant, MouthVariant } from "../critterConfig";
 
 type Props = {
   mainColor?: string;
+  eyes?: EyeVariant;
+  mouth?: MouthVariant;
 };
 
-function Critter({ mainColor = "#fff" }: Props) {
+function Critter({
+  mainColor = "#fff",
+  eyes = "tangy",
+  mouth = "tangy",
+}: Props) {
   const groupRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
@@ -16,10 +23,17 @@ function Critter({ mainColor = "#fff" }: Props) {
     loader.setPath("/models/cat/");
     manager.setURLModifier((url) => {
       if (url.endsWith(".png")) {
-        return url.replace("models/cat", "models/cat/textures/tangy-normalized-default");
+        let readyUrl = url.replace("models/cat", `models/cat/textures/default`);
+        if (url.toLowerCase().includes("eye")) {
+          readyUrl = readyUrl.replace("default", `${eyes}-normalized`);
+        }
+        if (url.toLowerCase().includes("mouth")) {
+          readyUrl = readyUrl.replace("default", `${mouth}-normalized`);
+        }
+        return readyUrl;
       }
       return url;
-    })
+    });
     loader.load("Cat.fbx", (model) => {
       if (groupRef.current) {
         groupRef.current.clear();
@@ -27,7 +41,9 @@ function Critter({ mainColor = "#fff" }: Props) {
 
         model.traverse((child) => {
           if (child instanceof THREE.Mesh) {
-            const originalMat = Array.isArray(child.material) ? child.material[0] : child.material;
+            const originalMat = Array.isArray(child.material)
+              ? child.material[0]
+              : child.material;
 
             const map = (originalMat as any)?.map || null;
             const normalMap = (originalMat as any)?.normalMap || null;
@@ -82,7 +98,7 @@ function Critter({ mainColor = "#fff" }: Props) {
         });
       }
     });
-  }, [mainColor]);
+  }, [mainColor, eyes, mouth]);
 
   return (
     <group ref={groupRef} position={[0, -7.75, 0]} receiveShadow castShadow />

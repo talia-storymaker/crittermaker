@@ -4,10 +4,13 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useState, useEffect } from "react";
 import Critter from "../components/Critter";
 import Link from "next/link";
+import { EyeVariant, MouthVariant } from "../critterConfig";
 
 interface Critter {
   name: string;
   mainColor: string;
+  eyes: EyeVariant;
+  mouth: MouthVariant;
 }
 
 const CRITTERS_PER_PAGE = 6;
@@ -73,7 +76,11 @@ export default function CritterGrid() {
                       castShadow 
                     />
                     <Suspense fallback={null}>
-                      <Critter mainColor={critter.mainColor} />
+                      <Critter 
+                        mainColor={critter.mainColor}
+                        eyes={critter.eyes}
+                        mouth={critter.mouth}
+                      />
                     </Suspense>
                   </Canvas>
                   <button onClick={() => deleteCritter(actualIndex)}>Delete</button>

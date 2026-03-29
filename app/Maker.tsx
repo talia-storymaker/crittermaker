@@ -6,10 +6,13 @@ import Critter from "./components/Critter";
 import { OrbitControls } from "@react-three/drei";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { EyeVariant, MouthVariant, critterConfig } from "./critterConfig";
 
 interface CritterData {
   name: string;
   mainColor: string;
+  eyes: EyeVariant;
+  mouth: MouthVariant;
 }
 
 const Maker: React.FC = () => {
@@ -29,12 +32,24 @@ const Maker: React.FC = () => {
           return {
             name: critters[index].name,
             mainColor: critters[index].mainColor,
+            eyes: critters[index].eyes || "tangy",
+            mouth: critters[index].mouth || "tangy",
           };
         }
       }
-      return { name: "Critter", mainColor: "#fff" };
+      return {
+        name: "Critter",
+        mainColor: "#fff",
+        eyes: "tangy",
+        mouth: "tangy",
+      };
     } catch {
-      return { name: "Critter", mainColor: "#fff" };
+      return {
+        name: "Critter",
+        mainColor: "#fff",
+        eyes: "tangy",
+        mouth: "tangy",
+      };
     }
   });
   const [showSavedStatus, setShowSavedStatus] = useState(false);
@@ -49,9 +64,16 @@ const Maker: React.FC = () => {
         critters[loadedCritterId] = {
           name: critter.name,
           mainColor: critter.mainColor,
+          eyes: critter.eyes,
+          mouth: critter.mouth,
         };
       } else {
-        critters.push({ name: critter.name, mainColor: critter.mainColor });
+        critters.push({
+          name: critter.name,
+          mainColor: critter.mainColor,
+          eyes: critter.eyes,
+          mouth: critter.mouth,
+        });
       }
       localStorage.setItem("critters", JSON.stringify(critters));
 
@@ -60,13 +82,10 @@ const Maker: React.FC = () => {
       } else {
         setShowSavedStatus(true);
       }
-      setTimeout(
-        () => {
-          setShowSavedStatus(false);
-          setShowSavedAsStatus(false);
-        },
-        2000,
-      );
+      setTimeout(() => {
+        setShowSavedStatus(false);
+        setShowSavedAsStatus(false);
+      }, 2000);
     } catch (error) {
       console.error("Failed to save critter:", error);
     }
@@ -116,7 +135,11 @@ const Maker: React.FC = () => {
             />
             <OrbitControls />
             <Suspense fallback={null}>
-              <Critter mainColor={critter.mainColor} />
+              <Critter
+                mainColor={critter.mainColor}
+                eyes={critter.eyes}
+                mouth={critter.mouth}
+              />
             </Suspense>
           </Canvas>
           <form className={sty.controls}>
@@ -141,6 +164,44 @@ const Maker: React.FC = () => {
                   setCritter((prev) => ({ ...prev, mainColor: e.target.value }))
                 }
               />
+            </label>
+            <label>
+              Eyes
+              <select
+                id="eyes"
+                value={critter.eyes}
+                onChange={(e) =>
+                  setCritter((prev) => ({
+                    ...prev,
+                    eyes: e.target.value as EyeVariant,
+                  }))
+                }
+              >
+                {critterConfig.eyes.options.map((option) => (
+                  <option key={option} value={option}>
+                    {option.charAt(0).toUpperCase() + option.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Mouth
+              <select
+                id="mouth"
+                value={critter.mouth}
+                onChange={(e) =>
+                  setCritter((prev) => ({
+                    ...prev,
+                    mouth: e.target.value as MouthVariant,
+                  }))
+                }
+              >
+                {critterConfig.mouth.options.map((option) => (
+                  <option key={option} value={option}>
+                    {option.charAt(0).toUpperCase() + option.slice(1)}
+                  </option>
+                ))}
+              </select>
             </label>
             <button type="button" onClick={() => saveCritter()}>
               Save{showSavedStatus ? "d!" : ""}
