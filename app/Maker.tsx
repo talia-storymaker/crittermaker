@@ -22,9 +22,7 @@ const Maker: React.FC = () => {
     typeof parseInt(loadedCritterId || "") === "number" &&
     loadedCritterId !== null;
   const [critter, setCritter] = useState<CritterData>(() => {
-    // Previously, I wanted to load the last critter data.
-    // Maybe a blank critter is better, hence commenting stuff out.
-    /*  try {
+     try {
       const critters = JSON.parse(localStorage.getItem("critters") || "[]");
       if (critters.length) {
         const index = loadedCritterId
@@ -38,21 +36,21 @@ const Maker: React.FC = () => {
             mouth: critters[index].mouth || "tangy",
           };
         }
-      } */
+      }
     return {
       name: "Critter",
       mainColor: "#fff",
       eyes: "tangy",
       mouth: "tangy",
     };
-    /* } catch {
+    } catch {
       return {
         name: "Critter",
         mainColor: "#fff",
         eyes: "tangy",
         mouth: "tangy",
       };
-    } */
+    }
   });
   const [showSavedStatus, setShowSavedStatus] = useState(false);
   const [showSavedAsStatus, setShowSavedAsStatus] = useState(false);
