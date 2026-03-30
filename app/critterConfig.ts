@@ -25,8 +25,8 @@ const catVillagers = [
 ];
 
 export const critterConfig = {
-  eyes: { label: "Eyes", options: ["tangy", "bob", "rosie"] as const },
-  mouth: { label: "Mouth", options: ["tangy", "bob", "rosie "] as const },
+  eyes: { label: "Eyes", options: catVillagers },
+  mouth: { label: "Mouth", options: catVillagers },
 } as const;
 
 export type EyeVariant = typeof critterConfig.eyes.options[number];
