@@ -1,1 +1,0 @@
-Only Tangy, Bob, and Rosie are actually normalized.
