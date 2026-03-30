@@ -48,6 +48,10 @@ function Critter({
             const map = (originalMat as any)?.map || null;
             const normalMap = (originalMat as any)?.normalMap || null;
 
+            if (map) {
+              map.colorSpace = THREE.SRGBColorSpace;
+            }
+
             const material = new THREE.ShaderMaterial({
               uniforms: {
                 baseColor: { value: new THREE.Color(mainColor) },
@@ -84,7 +88,8 @@ function Critter({
                   }
                   vec3 lightDir = normalize(vec3(1.0, 1.0, 1.0));
                   float diff = max(dot(normal, lightDir), 0.0);
-                  color *= diff * 0.8 + 0.2; // ambient + diffuse
+                  color *= diff * 0.8 + 0.3; // ambient + diffuse
+                  color = pow(color, vec3(1.0 / 2.2)); // gamma correction
                   gl_FragColor = vec4(color, 1.0);
                 }
               `,
