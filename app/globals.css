@@ -5,6 +5,9 @@
   --dark: #590995;
   --background: var(--light);
   --foreground: var(--dark);
+  --critter-bg: azure;
+  --highlight: lightblue;
+  --highlight-light: #D0E9F1;
 }
 
 @media (prefers-color-scheme: dark) {

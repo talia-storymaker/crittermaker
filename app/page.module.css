@@ -9,13 +9,13 @@
 }
 
 .critter {
-  background-color: azure;
+  background-color: var(--critter-bg);
   border-radius: 3rem;
   max-width: 100%;
 }
 
 .controls {
-  background-color: lightblue;
+  background-color: var(--highlight);
   color: black;
   border-radius: 2rem;
   padding: 1rem;
@@ -25,10 +25,41 @@
 }
 
 .variants {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.25rem;
+  background-color: var(--highlight-light);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(2.25rem, 1fr));
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px var(--dark) solid;
+}
+
+.variants legend {
+  background-color: var(--highlight-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.variants input {
+  display: none;
+}
+
+.variants label {
+  background-color: var(--light);
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 5px;
+  border: 1px var(--dark) solid;
+  padding: 3px;
+}
+
+.variants label:has(input:checked) {
+  background-color: var(--highlight);
+  border-width: 2px;
+}
+
+.variants label img {
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
