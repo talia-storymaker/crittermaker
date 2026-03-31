@@ -22,7 +22,7 @@ const Maker: React.FC = () => {
     typeof parseInt(loadedCritterId || "") === "number" &&
     loadedCritterId !== null;
   const [critter, setCritter] = useState<CritterData>(() => {
-     try {
+    try {
       const critters = JSON.parse(localStorage.getItem("critters") || "[]");
       if (critters.length) {
         const index = loadedCritterId
@@ -37,12 +37,12 @@ const Maker: React.FC = () => {
           };
         }
       }
-    return {
-      name: "Critter",
-      mainColor: "#fff",
-      eyes: "tangy",
-      mouth: "tangy",
-    };
+      return {
+        name: "Critter",
+        mainColor: "#fff",
+        eyes: "tangy",
+        mouth: "tangy",
+      };
     } catch {
       return {
         name: "Critter",
@@ -165,44 +165,48 @@ const Maker: React.FC = () => {
                 }
               />
             </label>
-            <label>
-              Eyes
-              <select
-                id="eyes"
-                value={critter.eyes}
-                onChange={(e) =>
-                  setCritter((prev) => ({
-                    ...prev,
-                    eyes: e.target.value as EyeVariant,
-                  }))
-                }
-              >
-                {critterConfig.eyes.options.map((option) => (
-                  <option key={option} value={option}>
-                    {option.charAt(0).toUpperCase() + option.slice(1)}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Mouth
-              <select
-                id="mouth"
-                value={critter.mouth}
-                onChange={(e) =>
-                  setCritter((prev) => ({
-                    ...prev,
-                    mouth: e.target.value as MouthVariant,
-                  }))
-                }
-              >
-                {critterConfig.mouth.options.map((option) => (
-                  <option key={option} value={option}>
-                    {option.charAt(0).toUpperCase() + option.slice(1)}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <fieldset className={sty.variants}>
+              <legend>Eyes</legend>
+              {critterConfig.eyes.options.map((option) => (
+                <label key={option}>
+                  <input
+                    type="radio"
+                    name="eyes"
+                    value={option}
+                    onChange={(e) =>
+                      setCritter((prev) => ({
+                        ...prev,
+                        eyes: e.target.value as EyeVariant,
+                      }))
+                    }
+                  ></input>
+                  {option.charAt(0).toUpperCase() + option.slice(1)}
+                </label>
+              ))}
+            </fieldset>
+            <fieldset className={sty.variants}>
+              <legend>Mouth</legend>
+              {critterConfig.mouth.options.map((option) => (
+                <label key={option}>
+                  <input
+                    type="radio"
+                    name="mouth"
+                    value={option}
+                    onChange={(e) =>
+                      setCritter((prev) => ({
+                        ...prev,
+                        mouth: e.target.value as MouthVariant,
+                      }))
+                    }
+                  ></input>
+                  <img 
+                    src={`/variant-icons/cat-mouths/mouth-${option}.png`}
+                    title={option.charAt(0).toUpperCase() + option.slice(1)}
+                    alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style mouth`} 
+                  />
+                </label>
+              ))}
+            </fieldset>
             <button type="button" onClick={() => saveCritter()}>
               Save{showSavedStatus ? "d!" : ""}
             </button>

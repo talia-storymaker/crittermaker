@@ -24,8 +24,19 @@
   gap: 0.5rem;
 }
 
+.variants {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
 @media (min-width: 768px) {
   .critterContainer {
     flex-direction: row;
+  }
+
+  .controls {
+    max-width: 17rem;
   }
 }
