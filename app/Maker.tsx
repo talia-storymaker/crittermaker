@@ -166,7 +166,9 @@ const Maker: React.FC = () => {
               />
             </label>
             <fieldset className={sty.variants}>
-              <legend>Eyes</legend>
+              <legend>
+                <span>Eyes</span>
+              </legend>
               {critterConfig.eyes.options.map((option) => (
                 <label key={option}>
                   <input
@@ -185,7 +187,9 @@ const Maker: React.FC = () => {
               ))}
             </fieldset>
             <fieldset className={sty.variants}>
-              <legend>Mouth</legend>
+              <legend>
+                <span>Mouth</span>
+              </legend>
               {critterConfig.mouth.options.map((option) => (
                 <label key={option}>
                   <input
@@ -199,10 +203,10 @@ const Maker: React.FC = () => {
                       }))
                     }
                   ></input>
-                  <img 
+                  <img
                     src={`/variant-icons/cat-mouths/mouth-${option}.png`}
                     title={option.charAt(0).toUpperCase() + option.slice(1)}
-                    alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style mouth`} 
+                    alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style mouth`}
                   />
                 </label>
               ))}
