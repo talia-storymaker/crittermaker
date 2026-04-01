@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header className="header subtle-bg">
+        <header className="header subtle-bg less-subtle-bg">
           <Link className="logo" href="/">
             3D CritterMaker
           </Link>
@@ -31,7 +31,7 @@ export default function RootLayout({
           </nav>
         </header>
         {children}
-        <footer className="subtle-bg">
+        <footer className="subtle-bg less-subtle-bg">
           <div className="footer-inner">
             <p>
               Create your own 3D animal villagers in the Animal Crossing New Horizons style, right here in your browser!

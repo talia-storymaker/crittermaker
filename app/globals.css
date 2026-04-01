@@ -3,9 +3,10 @@
 :root {
   --light: #ededed;
   --dark: #590995;
+  --darker: #1b032d;
   --background: var(--light);
   --foreground: var(--dark);
-  --critter-bg: azure;
+  --critter-bg: rgb(240, 255, 255, 0.5);
   --highlight: lightblue;
   --highlight-light: #DCEEF4;
 }
@@ -47,6 +48,7 @@ a {
 
 header, footer {
   border: 4px var(--foreground) double;
+  backdrop-filter: blur(5px);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -83,6 +85,10 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
+  font-family: AC, sans-serif;
+  font-weight: normal;
+  font-size: 2.5rem;
+  transform: scaleX(2);
 }
 
 .subtitle {
@@ -113,11 +119,12 @@ header {
   padding: 1rem;
   font-size: 1.1rem;
   border-width: 0 0 4px 0;
-  backdrop-filter: blur(5px);
 }
 
 .logo {
-  font-size: 1.25rem;
+  font-size: 1.75rem;
+  font-family: AC, sans-serif;
+  transform: scaleX(2);
 }
 
 .nav-list {
@@ -130,6 +137,10 @@ header {
 @media (min-width: 768px){
   header, .nav-list {
     flex-direction: row;
+  }
+
+  .logo {
+    transform-origin: center left;
   }
 }
 
@@ -238,4 +249,23 @@ footer {
   background: var(--foreground);
   opacity: 0.1;
   z-index: -1;
+}
+
+.less-subtle-bg::before {
+  opacity: 0.15;
+}
+
+@media (prefers-color-scheme: dark) {
+  .subtle-bg::before {
+    background: var(--darker);
+  }
+}
+
+/* fonts */
+
+@font-face {
+  font-family: "AC";
+  src: url("/fonts/MouseMemoirs-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }

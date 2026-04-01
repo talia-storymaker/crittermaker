@@ -12,6 +12,7 @@
   background-color: var(--critter-bg);
   border-radius: 3rem;
   max-width: 100%;
+  border: 2px var(--foreground) solid;
 }
 
 .controls {
