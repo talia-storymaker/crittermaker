@@ -7,7 +7,7 @@
   --foreground: var(--dark);
   --critter-bg: azure;
   --highlight: lightblue;
-  --highlight-light: #D0E9F1;
+  --highlight-light: #DCEEF4;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,7 +25,11 @@ body {
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background-color: var(--background);
+  background-image: url("/decoration/wood-texture.svg");
+  background-blend-mode: color-burn;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
   font-family: "Segoe UI", Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -41,9 +45,17 @@ a {
   color: inherit;
 }
 
+header, footer {
+  border: 4px var(--foreground) double;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+
+  body {
+    background-blend-mode: soft-light;
   }
 }
 
@@ -100,6 +112,8 @@ header {
   justify-content: space-between;
   padding: 1rem;
   font-size: 1.1rem;
+  border-width: 0 0 4px 0;
+  backdrop-filter: blur(5px);
 }
 
 .logo {
@@ -193,6 +207,7 @@ footer {
   padding: 0.5rem;
   display: flex;
   justify-content: center;
+  border-width: 4px 0 0 0;
 }
 
 .footer-inner {

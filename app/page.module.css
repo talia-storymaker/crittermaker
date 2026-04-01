@@ -17,11 +17,23 @@
 .controls {
   background-color: var(--highlight);
   color: black;
-  border-radius: 2rem;
+  border-radius: 1rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  border: 1px solid transparent;
+  border-image-source: url("/decoration/mouth-rosie-dark-border.png");
+  border-image-slice: 42 47;
+  border-image-width: 1rem;
+  border-image-outset: .425rem .355rem;
+  border-image-repeat: round; 
+}
+
+@media (prefers-color-scheme: dark) {
+  .controls {
+    border-image-source: url("/decoration/mouth-rosie-white-border.png");
+  }
 }
 
 .variants {
