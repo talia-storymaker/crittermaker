@@ -27,10 +27,9 @@ body {
 body {
   color: var(--foreground);
   background-color: var(--background);
-  background-image: url("/decoration/wood-texture.svg");
+  background-image: url("/decoration/ac-grass-pattern.jpg");
   background-blend-mode: color-burn;
-  background-repeat: repeat-x;
-  background-size: auto 100%;
+  background-repeat: repeat;
   font-family: "Segoe UI", Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
