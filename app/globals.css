@@ -230,6 +230,17 @@ footer {
   margin: 0.5rem 0;
 }
 
+.theme-toggle-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+}
+
 /* utility */
 
 .display-none {
