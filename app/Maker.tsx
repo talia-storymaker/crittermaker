@@ -115,33 +115,38 @@ const Maker: React.FC = () => {
           <div className="subtitle">aka Animal Crossing Villager NPC Maker</div>
         </h1>
         <div className={sty.critterContainer}>
-          <Canvas
-            gl={{ preserveDrawingBuffer: true }}
-            className={sty.critter}
-            style={{ width: "30rem", height: "35rem" }}
-            camera={{
-              position: [0, 1.5, 10],
-            }}
-            shadows
-          >
-            <ambientLight color={"#fff"} intensity={3} />
-            <spotLight
-              position={[10, 10, 10]}
-              angle={0.15}
-              penumbra={3}
-              decay={0}
-              intensity={Math.PI}
-              castShadow
-            />
-            <OrbitControls />
-            <Suspense fallback={null}>
-              <Critter
-                mainColor={critter.mainColor}
-                eyes={critter.eyes}
-                mouth={critter.mouth}
+          <div>
+            <Canvas
+              gl={{ preserveDrawingBuffer: true }}
+              className={sty.critter}
+              style={{ width: "30rem", height: "35rem" }}
+              camera={{
+                position: [0, 1.5, 10],
+              }}
+              shadows
+            >
+              <ambientLight color={"#fff"} intensity={3} />
+              <spotLight
+                position={[10, 10, 10]}
+                angle={0.15}
+                penumbra={3}
+                decay={0}
+                intensity={Math.PI}
+                castShadow
               />
-            </Suspense>
-          </Canvas>
+              <OrbitControls />
+              <Suspense fallback={null}>
+                <Critter
+                  mainColor={critter.mainColor}
+                  eyes={critter.eyes}
+                  mouth={critter.mouth}
+                />
+              </Suspense>
+            </Canvas>
+            <small className={sty.critterNote}>
+              Drag to rotate. Scroll to zoom.
+            </small>
+          </div>
           <form className={sty.controls}>
             <label>
               Name
@@ -182,7 +187,12 @@ const Maker: React.FC = () => {
                       }))
                     }
                   ></input>
-                  {option.charAt(0).toUpperCase() + option.slice(1)}
+                  <img
+                    src={`/variant-icons/cat-eyes/eye-${option}.png`}
+                    title={option.charAt(0).toUpperCase() + option.slice(1)}
+                    alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style eye`}
+                    className={sty.eyeIcon}
+                  />
                 </label>
               ))}
             </fieldset>

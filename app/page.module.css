@@ -15,6 +15,12 @@
   border: 2px var(--foreground) solid;
 }
 
+.critterNote {
+  display: block;
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
 .controls {
   background-color: var(--highlight);
   color: #000;
@@ -83,6 +89,10 @@
   border-radius: 5px;
   border: 1px var(--dark) solid;
   padding: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .variants label:has(input:checked) {
@@ -92,6 +102,12 @@
 
 .variants label img {
   max-width: 100%;
+  max-height: 100%;
+}
+
+.variants label .eyeIcon {
+  max-height: 1.25rem;
+  max-width: 1.5rem;
 }
 
 @media (min-width: 768px) {
