@@ -1,11 +1,11 @@
 "use client";
 import sty from "./page.module.css";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useState, useRef } from "react";
+import { Suspense, useState, useRef, useEffect } from "react";
 import Critter from "./components/Critter";
 import { OrbitControls } from "@react-three/drei";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, redirect } from "next/navigation";
 import { EyeVariant, MouthVariant, critterConfig } from "./critterConfig";
 
 interface CritterData {
@@ -54,6 +54,18 @@ const Maker: React.FC = () => {
   });
   const [showSavedStatus, setShowSavedStatus] = useState(false);
   const [showSavedAsStatus, setShowSavedAsStatus] = useState(false);
+
+  useEffect(() => {
+    if (loadedCritterId) return; // prevent redirect loop
+    let index = -1;
+    const critters = JSON.parse(localStorage.getItem("critters") || "[]");
+    if (critters.length) {
+      index = critters.length - 1;
+    }
+    if (index >= 0 && index < critters.length) {
+      redirect(`/?critterindex=${index}`);
+    }
+  }, []);
 
   const downloadLink = useRef<HTMLAnchorElement>(null);
 
