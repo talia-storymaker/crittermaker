@@ -83,7 +83,7 @@
 }
 
 .variants label {
-  background-color: var(--light);
+  background-color: var(--medium);
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 5px;

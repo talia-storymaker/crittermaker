@@ -2,6 +2,7 @@
 
 :root {
   --light: #ededed;
+  --medium: #d6c8e1;
   --dark: #590995;
   --darker: #1b032d;
   --background: var(--light);
@@ -160,6 +161,10 @@ input, button, .button {
   position: relative;
   text-decoration: none;
   font-size: 1rem;
+  position: relative;
+  img {
+    z-index: 1;
+  }
 }
 
 input[disabled], button[disabled] {

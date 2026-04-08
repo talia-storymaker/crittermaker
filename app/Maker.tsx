@@ -175,7 +175,7 @@ const Maker: React.FC = () => {
                 <span>Eyes</span>
               </legend>
               {critterConfig.eyes.options.map((option) => (
-                <label key={option}>
+                <label className="button" key={option}>
                   <input
                     type="radio"
                     name="eyes"
@@ -201,7 +201,7 @@ const Maker: React.FC = () => {
                 <span>Mouth</span>
               </legend>
               {critterConfig.mouth.options.map((option) => (
-                <label key={option}>
+                <label className="button" key={option}>
                   <input
                     type="radio"
                     name="mouth"
