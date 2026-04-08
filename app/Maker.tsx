@@ -17,12 +17,20 @@ interface CritterData {
 
 const Maker: React.FC = () => {
   const searchParams = useSearchParams();
-  const loadedCritterId = searchParams.get("critterindex");
+  const loadedCritterId = searchParams.has("new")
+    ? null
+    : searchParams.get("critterindex");
+  const blankCritter = {
+    name: "Critter",
+    mainColor: "#fff",
+    eyes: "tangy",
+    mouth: "tangy",
+  };
   const editing =
-    typeof parseInt(loadedCritterId || "") === "number" &&
-    loadedCritterId !== null;
+    !Number.isNaN(loadedCritterId || "") && loadedCritterId !== null;
   const [critter, setCritter] = useState<CritterData>(() => {
     try {
+      if (searchParams.has("new")) return blankCritter;
       const critters = JSON.parse(localStorage.getItem("critters") || "[]");
       if (critters.length) {
         const index = loadedCritterId
@@ -37,26 +45,17 @@ const Maker: React.FC = () => {
           };
         }
       }
-      return {
-        name: "Critter",
-        mainColor: "#fff",
-        eyes: "tangy",
-        mouth: "tangy",
-      };
+      return blankCritter;
     } catch {
-      return {
-        name: "Critter",
-        mainColor: "#fff",
-        eyes: "tangy",
-        mouth: "tangy",
-      };
+      return blankCritter;
     }
   });
   const [showSavedStatus, setShowSavedStatus] = useState(false);
   const [showSavedAsStatus, setShowSavedAsStatus] = useState(false);
 
   useEffect(() => {
-    if (loadedCritterId) return; // prevent redirect loop
+    if (searchParams.has("new")) return;
+    if (loadedCritterId !== null) return; // prevent redirect loop
     let index = -1;
     const critters = JSON.parse(localStorage.getItem("critters") || "[]");
     if (critters.length) {

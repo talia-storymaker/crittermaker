@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
 import LogoLink from "./components/LogoLink";
+import NewCritterLink from "./components/NewCritterLink";
 import DarkLightToggle from "./components/DarkLightToggle";
 import muiTheme from "./muiTheme";
 
@@ -28,7 +29,7 @@ export default function RootLayout({
               <nav>
                 <ul className="nav-list">
                   <li>
-                    <Link href="/">Create</Link>
+                    <NewCritterLink />
                   </li>
                   <li>
                     <Link href="/your-critters">Your Critters</Link>
