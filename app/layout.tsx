@@ -3,6 +3,7 @@ import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
+import LogoLink from "./components/LogoLink";
 import DarkLightToggle from "./components/DarkLightToggle";
 import muiTheme from "./muiTheme";
 
@@ -23,9 +24,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={muiTheme}>
             <header className="header subtle-bg less-subtle-bg">
-              <Link className="logo" href="/">
-                3D CritterMaker
-              </Link>
+              <LogoLink />
               <nav>
                 <ul className="nav-list">
                   <li>
