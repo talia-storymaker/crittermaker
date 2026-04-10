@@ -30,6 +30,7 @@ function Critter({
         if (url.toLowerCase().includes("mouth")) {
           readyUrl = readyUrl.replace("default", `${mouth}-normalized`);
         }
+        console.log(`Loading texture: ${readyUrl}`);
         return readyUrl;
       }
       return url;
@@ -38,6 +39,19 @@ function Critter({
       if (groupRef.current) {
         groupRef.current.clear();
         groupRef.current.add(model);
+
+        const shirtLongSleeve = model.getObjectByName("CatShirt__TshirtsL");
+        const shirtShortSleeve = model.getObjectByName("CatShirt__TshirtsH");
+        const shirtSleeveless = model.getObjectByName("CatShirt_TshirtsN");
+        const dressLongSleeve = model.getObjectByName("CatShirt__OnePieceL");
+        const dressShortSleeve = model.getObjectByName("CatShirt__OnePieceH");
+        const dressSleeveless = model.getObjectByName("CatShirt__OnePieceN");
+
+        if (shirtLongSleeve) shirtLongSleeve.visible = false;
+        if (shirtShortSleeve) shirtShortSleeve.visible = false;
+        if (shirtSleeveless) shirtSleeveless.visible = false;
+        if (dressLongSleeve) dressLongSleeve.visible = false;
+        if (dressShortSleeve) dressShortSleeve.visible = false;
 
         model.traverse((child) => {
           if (child instanceof THREE.Mesh) {
