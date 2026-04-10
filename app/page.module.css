@@ -51,11 +51,25 @@
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px var(--dark) solid;
+  position: relative;
+}
+
+.tabButton {
+  text-align: center;
+  width: 5rem;
+  position: absolute;
+  top: calc(-2rem + 1px);
+  left: calc(5rem + 0.6rem);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0.15rem 0.8rem;
 }
 
 .variants legend {
+  width: 5rem;
   background-color: var(--highlight-light);
-  padding: 0.25rem 0.8rem;
+  padding: 0;
+  margin-bottom: -1.5rem;
   border-radius: 0.5rem;
   border: 1px var(--dark) solid;
   border-bottom-width: 0;
@@ -74,8 +88,13 @@
 }
 
 .variants legend span {
+  text-align: center;
   position: relative;
+  top: -0.8rem;
   z-index: 1;
+  display: inline-block;
+  padding: 1rem;
+  width: 100%;
 }
 
 .variants input {

@@ -50,8 +50,11 @@ const Maker: React.FC = () => {
       return blankCritter;
     }
   });
+
   const [showSavedStatus, setShowSavedStatus] = useState(false);
   const [showSavedAsStatus, setShowSavedAsStatus] = useState(false);
+
+  const [currentFeatureTab, setCurrentFeatureTab] = useState("eyes");
 
   useEffect(() => {
     if (searchParams.has("new")) return;
@@ -181,57 +184,80 @@ const Maker: React.FC = () => {
                 }
               />
             </label>
-            <fieldset className={sty.variants}>
-              <legend>
-                <span>Eyes</span>
-              </legend>
-              {critterConfig.eyes.options.map((option) => (
-                <label className="button" key={option}>
-                  <input
-                    type="radio"
-                    name="eyes"
-                    value={option}
-                    onChange={(e) =>
-                      setCritter((prev) => ({
-                        ...prev,
-                        eyes: e.target.value as EyeVariant,
-                      }))
-                    }
-                  ></input>
-                  <img
-                    src={`/variant-icons/cat-eyes/eye-${option}.png`}
-                    title={option.charAt(0).toUpperCase() + option.slice(1)}
-                    alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style eye`}
-                    className={sty.eyeIcon}
-                  />
-                </label>
-              ))}
-            </fieldset>
-            <fieldset className={sty.variants}>
-              <legend>
-                <span>Mouth</span>
-              </legend>
-              {critterConfig.mouth.options.map((option) => (
-                <label className="button" key={option}>
-                  <input
-                    type="radio"
-                    name="mouth"
-                    value={option}
-                    onChange={(e) =>
-                      setCritter((prev) => ({
-                        ...prev,
-                        mouth: e.target.value as MouthVariant,
-                      }))
-                    }
-                  ></input>
-                  <img
-                    src={`/variant-icons/cat-mouths/mouth-${option}.png`}
-                    title={option.charAt(0).toUpperCase() + option.slice(1)}
-                    alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style mouth`}
-                  />
-                </label>
-              ))}
-            </fieldset>
+            <section className={sty.variantsCategory}>
+              {currentFeatureTab === "eyes" ? (
+                <fieldset className={sty.variants}>
+                  <legend>
+                    <span>Eyes</span>
+                  </legend>
+                  <button
+                    onClick={() => setCurrentFeatureTab("mouth")}
+                    className={sty.tabButton}
+                  >
+                    Mouth
+                  </button>
+                  {critterConfig.eyes.options.map((option) => (
+                    <label className="button" key={option}>
+                      <input
+                        type="radio"
+                        name="eyes"
+                        value={option}
+                        onChange={(e) =>
+                          setCritter((prev) => ({
+                            ...prev,
+                            eyes: e.target.value as EyeVariant,
+                          }))
+                        }
+                      ></input>
+                      <img
+                        src={`/variant-icons/cat-eyes/eye-${option}.png`}
+                        title={option.charAt(0).toUpperCase() + option.slice(1)}
+                        alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style eye`}
+                        className={sty.eyeIcon}
+                      />
+                    </label>
+                  ))}
+                </fieldset>
+              ) : (
+                ""
+              )}
+              {currentFeatureTab === "mouth" ? (
+                <fieldset className={sty.variants}>
+                  <legend>
+                    <span>Mouth</span>
+                  </legend>
+                  <button
+                    onClick={() => setCurrentFeatureTab("eyes")}
+                    className={sty.tabButton}
+                  >
+                    Eyes
+                  </button>
+                  {critterConfig.mouth.options.map((option) => (
+                    <label className="button" key={option}>
+                      <input
+                        type="radio"
+                        name="mouth"
+                        value={option}
+                        onChange={(e) =>
+                          setCritter((prev) => ({
+                            ...prev,
+                            mouth: e.target.value as MouthVariant,
+                          }))
+                        }
+                      ></input>
+                      <img
+                        src={`/variant-icons/cat-mouths/mouth-${option}.png`}
+                        title={option.charAt(0).toUpperCase() + option.slice(1)}
+                        alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style mouth`}
+                      />
+                    </label>
+                  ))}
+                </fieldset>
+              ) : (
+                ""
+              )}
+            </section>
+
             <button type="button" onClick={() => saveCritter()}>
               Save{showSavedStatus ? "d!" : ""}
             </button>
