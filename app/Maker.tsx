@@ -6,13 +6,19 @@ import Critter from "./components/Critter";
 import { OrbitControls } from "@react-three/drei";
 import Link from "next/link";
 import { useSearchParams, redirect } from "next/navigation";
-import { EyeVariant, MouthVariant, critterConfig } from "./critterConfig";
+import {
+  EyeVariant,
+  MouthVariant,
+  TopVariant,
+  critterConfig,
+} from "./critterConfig";
 
 interface CritterData {
   name: string;
   mainColor: string;
   eyes: EyeVariant;
   mouth: MouthVariant;
+  top: TopVariant;
 }
 
 const Maker: React.FC = () => {
@@ -25,6 +31,7 @@ const Maker: React.FC = () => {
     mainColor: "#fff",
     eyes: "tangy",
     mouth: "tangy",
+    top: critterConfig.tops.options[0],
   };
   const editing =
     !Number.isNaN(loadedCritterId || "") && loadedCritterId !== null;
@@ -42,6 +49,7 @@ const Maker: React.FC = () => {
             mainColor: critters[index].mainColor,
             eyes: critters[index].eyes || "tangy",
             mouth: critters[index].mouth || "tangy",
+            top: critters[index].top || critterConfig.tops.options[0],
           };
         }
       }
@@ -54,7 +62,10 @@ const Maker: React.FC = () => {
   const [showSavedStatus, setShowSavedStatus] = useState(false);
   const [showSavedAsStatus, setShowSavedAsStatus] = useState(false);
 
-  const [currentFeatureTab, setCurrentFeatureTab] = useState("eyes");
+  const [currentFeatureTab, setCurrentFeatureTab] = useState<"eyes" | "mouth">(
+    "eyes",
+  );
+  const [currentClothesTab, setCurrentClothesTab] = useState("tops");
 
   useEffect(() => {
     if (searchParams.has("new")) return;
@@ -80,6 +91,7 @@ const Maker: React.FC = () => {
           mainColor: critter.mainColor,
           eyes: critter.eyes,
           mouth: critter.mouth,
+          top: critter.top,
         };
       } else {
         critters.push({
@@ -87,6 +99,7 @@ const Maker: React.FC = () => {
           mainColor: critter.mainColor,
           eyes: critter.eyes,
           mouth: critter.mouth,
+          top: critter.top,
         });
       }
       localStorage.setItem("critters", JSON.stringify(critters));
@@ -154,6 +167,7 @@ const Maker: React.FC = () => {
                   mainColor={critter.mainColor}
                   eyes={critter.eyes}
                   mouth={critter.mouth}
+                  top={critter.top}
                 />
               </Suspense>
             </Canvas>
@@ -249,6 +263,40 @@ const Maker: React.FC = () => {
                         src={`/variant-icons/cat-mouths/mouth-${option}.png`}
                         title={option.charAt(0).toUpperCase() + option.slice(1)}
                         alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style mouth`}
+                      />
+                    </label>
+                  ))}
+                </fieldset>
+              ) : (
+                ""
+              )}
+            </section>
+            <section className={sty.variantsCategory}>
+              {currentClothesTab === "tops" ? (
+                <fieldset className={sty.variants}>
+                  <legend>
+                    <span>Tops</span>
+                  </legend>
+                  {critterConfig.tops.options.map((option) => (
+                    <label className="button" key={option.name}>
+                      <input
+                        type="radio"
+                        name="tops"
+                        value={JSON.stringify(option)}
+                        onChange={(e) =>
+                          setCritter((prev) => ({
+                            ...prev,
+                            top: JSON.parse(e.target.value) as TopVariant,
+                          }))
+                        }
+                      ></input>
+                      <img
+                        src={`/variant-icons/tops/${option.name}.png`}
+                        title={
+                          option.name.charAt(0).toUpperCase() +
+                          option.name.slice(1)
+                        }
+                        alt={`${option.name.charAt(0).toUpperCase() + option.name.slice(1)}`}
                       />
                     </label>
                   ))}

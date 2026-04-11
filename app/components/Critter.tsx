@@ -1,18 +1,20 @@
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { EyeVariant, MouthVariant } from "../critterConfig";
+import { EyeVariant, MouthVariant, TopVariant } from "../critterConfig";
 
 type Props = {
   mainColor?: string;
   eyes?: EyeVariant;
   mouth?: MouthVariant;
+  top?: TopVariant;
 };
 
 function Critter({
   mainColor = "#fff",
   eyes = "tangy",
   mouth = "tangy",
+  top = { name: "argyle-sweater", sleeves: "long", type: "shirt" },
 }: Props) {
   const groupRef = useRef<THREE.Group>(null);
 
@@ -22,6 +24,11 @@ function Critter({
     const loader = new FBXLoader(manager);
     loader.setPath("/models/cat/");
     manager.setURLModifier((url) => {
+      if (url.endsWith(".png") && url.toLowerCase().includes("tops")) {
+        const topName = top.name.toLowerCase();
+        let readyUrl = url.replace("models/cat", `models/tops/${topName}`);
+        return readyUrl;
+      }
       if (url.endsWith(".png")) {
         let readyUrl = url.replace("models/cat", `models/cat/textures/default`);
         if (url.toLowerCase().includes("eye")) {
@@ -30,7 +37,6 @@ function Critter({
         if (url.toLowerCase().includes("mouth")) {
           readyUrl = readyUrl.replace("default", `${mouth}-normalized`);
         }
-        console.log(`Loading texture: ${readyUrl}`);
         return readyUrl;
       }
       return url;
@@ -47,11 +53,31 @@ function Critter({
         const dressShortSleeve = model.getObjectByName("CatShirt__OnePieceH");
         const dressSleeveless = model.getObjectByName("CatShirt__OnePieceN");
 
-        if (shirtLongSleeve) shirtLongSleeve.visible = false;
-        if (shirtShortSleeve) shirtShortSleeve.visible = false;
-        if (shirtSleeveless) shirtSleeveless.visible = false;
-        if (dressLongSleeve) dressLongSleeve.visible = false;
-        if (dressShortSleeve) dressShortSleeve.visible = false;
+        switch (top.type) {
+          case "shirt":
+            if (shirtLongSleeve && shirtShortSleeve && shirtSleeveless) {
+              shirtLongSleeve.visible = top.sleeves === "long";
+              shirtShortSleeve.visible = top.sleeves === "short";
+              shirtSleeveless.visible = top.sleeves === "none";
+            }
+            if (dressLongSleeve && dressShortSleeve && dressSleeveless) {
+              dressLongSleeve.visible = false;
+              dressShortSleeve.visible = false;
+              dressSleeveless.visible = false;
+            }
+            break;
+          case "dress":
+            if (dressLongSleeve && dressShortSleeve && dressSleeveless) {
+              dressLongSleeve.visible = top.sleeves === "long";
+              dressShortSleeve.visible = top.sleeves === "short";
+              dressSleeveless.visible = top.sleeves === "none";
+            }
+            if (shirtLongSleeve && shirtShortSleeve && shirtSleeveless) {
+              shirtLongSleeve.visible = false;
+              shirtShortSleeve.visible = false;
+              shirtSleeveless.visible = false;
+            }
+        }
 
         model.traverse((child) => {
           if (child instanceof THREE.Mesh) {
@@ -117,7 +143,7 @@ function Critter({
         });
       }
     });
-  }, [mainColor, eyes, mouth]);
+  }, [mainColor, eyes, mouth, top]);
 
   return (
     <group ref={groupRef} position={[0, -7.75, 0]} receiveShadow castShadow />
