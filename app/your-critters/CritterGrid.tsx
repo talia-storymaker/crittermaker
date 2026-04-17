@@ -5,6 +5,8 @@ import { Suspense, useState, useEffect } from "react";
 import Critter from "../components/Critter";
 import Link from "next/link";
 import { EyeVariant, MouthVariant } from "../critterConfig";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
 
 interface Critter {
   name: string;
@@ -18,6 +20,8 @@ const CRITTERS_PER_PAGE = 6;
 export default function CritterGrid() {
   const [critters, setCritters] = useState<Critter[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [critterToDelete, setCritterToDelete] = useState<null | number>(null);
 
   useEffect(() => {
     try {
@@ -30,6 +34,11 @@ export default function CritterGrid() {
       setCritters([]);
     }
   }, []);
+
+  function deleteCritterDialog(index: number) {
+    setDeleteDialogOpen(true);
+    setCritterToDelete(index);
+  }
 
   function deleteCritter(index: number) {
     const updatedCritters = critters.filter((_, i) => i !== index);
@@ -51,6 +60,38 @@ export default function CritterGrid() {
 
   return (
     <>
+      <Dialog
+        open={deleteDialogOpen}
+        role="alertdialog"
+        onClose={() => {
+          setDeleteDialogOpen(false);
+        }}
+      >
+        <DialogContent>
+          <span className="destructive-warning">Permanently</span> delete this
+          critter?
+          <div className={sty.deleteControls}>
+            <button
+              className={sty.delete}
+              onClick={() => {
+                if (critterToDelete) deleteCritter(critterToDelete);
+                setCritterToDelete(null);
+                setDeleteDialogOpen(false);
+              }}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => {
+                setDeleteDialogOpen(false);
+                setCritterToDelete(null);
+              }}
+            >
+              No
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
       <div className={sty.critters}>
         {critters.length === 0 ? (
           <p>
@@ -102,7 +143,7 @@ export default function CritterGrid() {
                         Load
                       </Link>
                       <button
-                        onClick={() => deleteCritter(actualIndex)}
+                        onClick={() => deleteCritterDialog(actualIndex)}
                         className={sty.delete}
                       >
                         Delete

@@ -35,6 +35,18 @@
   color: var(--light);
 }
 
+.deleteControls {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.deleteControls button {
+  min-width: 5rem;
+  border-color: var(--dark);
+}
+
 .name {
   white-space: nowrap;
   overflow: hidden;
