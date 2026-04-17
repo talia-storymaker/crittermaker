@@ -38,76 +38,104 @@ export default function CritterGrid() {
     setCurrentPage(1);
   }
 
+  function dynamicFontSize(length: number) {
+    if (length < 11) return "";
+    if (length > 15) return sty.nameLong;
+    return sty.nameMed;
+  }
+
   const totalPages = Math.ceil(critters.length / CRITTERS_PER_PAGE);
   const startIndex = (currentPage - 1) * CRITTERS_PER_PAGE;
   const endIndex = startIndex + CRITTERS_PER_PAGE;
   const paginatedCritters = critters.slice(startIndex, endIndex);
 
   return (
-    <div className={sty.critters}>
-      {critters.length === 0 ? (
-        <p>
-          You haven't saved any critters yet.
-          <Link href="/">Create one!</Link>
-        </p>
-      ) : null}
-      {critters.length > 0 && (
-        <>
-          {paginatedCritters.map(
-            (critter: Critter, index: number) => {
+    <>
+      <div className={sty.critters}>
+        {critters.length === 0 ? (
+          <p>
+            You haven't saved any critters yet.
+            <Link href="/">Create one!</Link>
+          </p>
+        ) : null}
+        {critters.length > 0 && (
+          <>
+            {paginatedCritters.map((critter: Critter, index: number) => {
               const actualIndex = startIndex + index;
               return (
                 <div key={actualIndex} className={`subtle-bg ${sty.critter}`}>
-                  <h2>{critter.name}</h2>
-                  <Canvas 
-                    style={{ width: '10rem', height: '10rem' }}
-                    camera={{
-                      position: [0, 0, 10],
-                    }}
-                    shadows
+                  <h2
+                    className={`${sty.name} ${dynamicFontSize(critter.name.length)}`}
                   >
-                    <ambientLight color={"#fff"} intensity={3} />
-                    <spotLight 
-                      position={[10, 10, 10]} 
-                      angle={0.15} 
-                      penumbra={3} 
-                      decay={0} 
-                      intensity={Math.PI} 
-                      castShadow 
-                    />
-                    <Suspense fallback={null}>
-                      <Critter 
-                        mainColor={critter.mainColor}
-                        eyes={critter.eyes}
-                        mouth={critter.mouth}
+                    {critter.name}
+                  </h2>
+                  <div className={sty.critterInner}>
+                    <Canvas
+                      style={{ width: "10rem", height: "10rem" }}
+                      camera={{
+                        position: [0, 0, 10],
+                      }}
+                      shadows
+                    >
+                      <ambientLight color={"#fff"} intensity={3} />
+                      <spotLight
+                        position={[10, 10, 10]}
+                        angle={0.15}
+                        penumbra={3}
+                        decay={0}
+                        intensity={Math.PI}
+                        castShadow
                       />
-                    </Suspense>
-                  </Canvas>
-                  <button onClick={() => deleteCritter(actualIndex)}>Delete</button>
-                  <Link href={`/?critterindex=${actualIndex}`} className="button">Load</Link>
+                      <Suspense fallback={null}>
+                        <Critter
+                          mainColor={critter.mainColor}
+                          eyes={critter.eyes}
+                          mouth={critter.mouth}
+                        />
+                      </Suspense>
+                    </Canvas>
+                    <div className={sty.critterControls}>
+                      <Link
+                        href={`/?critterindex=${actualIndex}`}
+                        className="button"
+                      >
+                        Load
+                      </Link>
+                      <button
+                        onClick={() => deleteCritter(actualIndex)}
+                        className={sty.delete}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 </div>
               );
-            },
-          )}
-          {totalPages > 1 && (
-            <div className={sty.pagination}>
-              <button 
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </button>
-              <span>{currentPage} of {totalPages}</span>
-              <button 
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </>
+            })}
+          </>
+        )}
+      </div>
+      {totalPages > 1 && (
+        <div className={sty.pagination}>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+            disabled={currentPage === 1}
+          >
+            ◀ Prev
+          </button>
+          <span>
+            {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+            }
+            disabled={currentPage === totalPages}
+          >
+            Next ▶
+          </button>
+        </div>
       )}
-    </div>
+    </>
   );
 }

@@ -10,6 +10,7 @@
   --critter-bg: rgb(240, 255, 255, 0.5);
   --highlight: lightblue;
   --highlight-light: #DCEEF4;
+  --destructive: #990000;
 }
 
 :root:not(:has(input[aria-label*="Light Mode"]:checked)) {

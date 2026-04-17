@@ -183,8 +183,10 @@ const Maker: React.FC = () => {
                 id="name"
                 value={critter.name}
                 onChange={(e) =>
-                  setCritter((prev) => ({ ...prev, name: e.target.value }))
+                  setCritter((prev) => ({ ...prev, name: e.target.value.slice(0, 25) }))
                 }
+                // slice is in case user circumvents maxLength (unlikely)
+                maxLength={25}
               />
             </label>
             <label>
