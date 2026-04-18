@@ -98,6 +98,9 @@ export default function CritterGrid() {
               const actualIndex = startIndex + index;
               return (
                 <div key={actualIndex} className={`subtle-bg ${sty.critter}`}>
+                  <div className={sty.loadingIndicatorOuter}>
+                    <div className={sty.loadingIndicator}></div>
+                  </div>
                   <h2
                     className={`${sty.name} ${dynamicFontSize(critter.name.length)}`}
                   >

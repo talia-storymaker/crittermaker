@@ -73,6 +73,41 @@
   visibility: hidden;
 }
 
+.loadingIndicatorOuter {
+  position: absolute;
+  top: 45%;
+  animation: shrink 5s ease-in 1;
+  transform: scale(0);
+}
+
+.loadingIndicator {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+  border: 3px var(--foreground) dashed;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes shrink {
+  from {
+    transform: scale(2);
+  }
+
+  to {
+    transform: scale(0);
+  }
+}
+
 @media (min-width: 768px) {
   .critters {
     grid-template-columns: 1fr 1fr 1fr;
