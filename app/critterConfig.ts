@@ -59,6 +59,14 @@ export const critterConfig = {
   tops: { label: "Tops", options: acnhTops },
 } as const;
 
+export interface CritterData {
+  name: string;
+  mainColor: string;
+  eyes: EyeVariant;
+  mouth: MouthVariant;
+  top: TopVariant;
+}
+
 export type EyeVariant = (typeof critterConfig.eyes.options)[number];
 export type MouthVariant = (typeof critterConfig.mouth.options)[number];
 export type TopVariant = (typeof critterConfig.tops.options)[number];

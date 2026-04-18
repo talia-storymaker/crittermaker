@@ -4,21 +4,14 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useState, useEffect } from "react";
 import Critter from "../components/Critter";
 import Link from "next/link";
-import { EyeVariant, MouthVariant } from "../critterConfig";
+import { CritterData } from "../critterConfig";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-
-interface Critter {
-  name: string;
-  mainColor: string;
-  eyes: EyeVariant;
-  mouth: MouthVariant;
-}
 
 const CRITTERS_PER_PAGE = 6;
 
 export default function CritterGrid() {
-  const [critters, setCritters] = useState<Critter[]>([]);
+  const [critters, setCritters] = useState<CritterData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [critterToDelete, setCritterToDelete] = useState<null | number>(null);
@@ -101,7 +94,7 @@ export default function CritterGrid() {
         ) : null}
         {critters.length > 0 && (
           <>
-            {paginatedCritters.map((critter: Critter, index: number) => {
+            {paginatedCritters.map((critter: CritterData, index: number) => {
               const actualIndex = startIndex + index;
               return (
                 <div key={actualIndex} className={`subtle-bg ${sty.critter}`}>
@@ -132,6 +125,7 @@ export default function CritterGrid() {
                           mainColor={critter.mainColor}
                           eyes={critter.eyes}
                           mouth={critter.mouth}
+                          top={critter.top}
                         />
                       </Suspense>
                     </Canvas>

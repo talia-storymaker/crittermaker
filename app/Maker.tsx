@@ -11,15 +11,8 @@ import {
   MouthVariant,
   TopVariant,
   critterConfig,
+  CritterData,
 } from "./critterConfig";
-
-interface CritterData {
-  name: string;
-  mainColor: string;
-  eyes: EyeVariant;
-  mouth: MouthVariant;
-  top: TopVariant;
-}
 
 const Maker: React.FC = () => {
   const searchParams = useSearchParams();
@@ -183,7 +176,10 @@ const Maker: React.FC = () => {
                 id="name"
                 value={critter.name}
                 onChange={(e) =>
-                  setCritter((prev) => ({ ...prev, name: e.target.value.slice(0, 25) }))
+                  setCritter((prev) => ({
+                    ...prev,
+                    name: e.target.value.slice(0, 25),
+                  }))
                 }
                 // slice is in case user circumvents maxLength (unlikely)
                 maxLength={25}
@@ -218,6 +214,7 @@ const Maker: React.FC = () => {
                         type="radio"
                         name="eyes"
                         value={option}
+                        checked={critter.eyes === option}
                         onChange={(e) =>
                           setCritter((prev) => ({
                             ...prev,
@@ -254,6 +251,7 @@ const Maker: React.FC = () => {
                         type="radio"
                         name="mouth"
                         value={option}
+                        checked={critter.mouth === option}
                         onChange={(e) =>
                           setCritter((prev) => ({
                             ...prev,
@@ -285,6 +283,9 @@ const Maker: React.FC = () => {
                         type="radio"
                         name="tops"
                         value={JSON.stringify(option)}
+                        checked={
+                          JSON.stringify(critter.top) === JSON.stringify(option)
+                        }
                         onChange={(e) =>
                           setCritter((prev) => ({
                             ...prev,
