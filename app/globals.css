@@ -9,7 +9,7 @@
   --foreground: var(--dark);
   --critter-bg: rgb(240, 255, 255, 0.5);
   --highlight: lightblue;
-  --highlight-light: #DCEEF4;
+  --highlight-light: #dceef4;
   --destructive: #990000;
 }
 
@@ -45,7 +45,8 @@ a {
   color: inherit;
 }
 
-header, footer {
+header,
+footer {
   border: 4px var(--foreground) double;
   backdrop-filter: blur(5px);
 }
@@ -133,8 +134,9 @@ header {
   gap: 1rem;
 }
 
-@media (min-width: 768px){
-  header, .nav-list {
+@media (min-width: 768px) {
+  header,
+  .nav-list {
     flex-direction: row;
   }
 
@@ -152,7 +154,9 @@ label {
   gap: 0.5rem;
 }
 
-input, button, .button {
+input,
+button,
+.button {
   border-radius: 0.5rem;
   padding: 0.5rem;
   border: 1px solid var(--foreground);
@@ -169,12 +173,14 @@ input, button, .button {
   }
 }
 
-input[disabled], button[disabled] {
+input[disabled],
+button[disabled] {
   opacity: 0.75;
   cursor: not-allowed;
 }
 
-button, input[type="color"] {
+button,
+input[type="color"] {
   cursor: pointer;
 }
 
@@ -195,11 +201,11 @@ input[type="color"] {
   border-width: 0;
 }
 
-input:hover::before, 
-input:focus::before, 
-button:hover::before, 
+input:hover::before,
+input:focus::before,
+button:hover::before,
 button:focus::before,
-.button:hover::before, 
+.button:hover::before,
 .button:focus::before {
   content: "";
   position: absolute;
@@ -211,9 +217,9 @@ button:focus::before,
   opacity: 0.2;
 }
 
-input[disabled]::before, 
+input[disabled]::before,
 button[disabled]::before {
-  content: none
+  content: none;
 }
 
 .MuiSwitch-track {

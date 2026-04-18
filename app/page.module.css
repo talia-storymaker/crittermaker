@@ -33,8 +33,8 @@
   border-image-source: url("/decoration/mouth-rosie-dark-border.png");
   border-image-slice: 42 47;
   border-image-width: 1rem;
-  border-image-outset: .425rem .355rem;
-  border-image-repeat: round; 
+  border-image-outset: 0.425rem 0.355rem;
+  border-image-repeat: round;
 }
 
 :root:not(:has(input[aria-label*="Light Mode"]:checked)) {
