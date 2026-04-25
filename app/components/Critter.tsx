@@ -42,8 +42,21 @@ function Critter({
       return url;
     });
     loader.load("Cat.fbx", (model) => {
+      // disposal to decrease chance of exhaustion of GPU memory
       if (groupRef.current) {
+        groupRef.current?.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.geometry.dispose();
+
+            if (Array.isArray(child.material)) {
+              child.material.forEach((m) => m.dispose());
+            } else {
+              child.material.dispose();
+            }
+          }
+        });
         groupRef.current.clear();
+
         groupRef.current.add(model);
 
         const shirtLongSleeve = model.getObjectByName("CatShirt__TshirtsL");
