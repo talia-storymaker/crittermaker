@@ -7,14 +7,21 @@ import Link from "next/link";
 import { CritterData } from "../critterConfig";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const CRITTERS_PER_PAGE = 6;
 
 export default function CritterGrid() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [critters, setCritters] = useState<CritterData[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    searchParams.get("page") ? parseInt(searchParams.get("page") as string) : 1,
+  );
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [critterToDelete, setCritterToDelete] = useState<null | number>(null);
+  const [paginatedCritters, setPaginatedCritters] = useState<CritterData[]>([]);
 
   useEffect(() => {
     try {
@@ -28,6 +35,12 @@ export default function CritterGrid() {
     }
   }, []);
 
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * CRITTERS_PER_PAGE;
+    const endIndex = startIndex + CRITTERS_PER_PAGE;
+    setPaginatedCritters(critters.slice(startIndex, endIndex));
+  }, [critters, currentPage]);
+
   function deleteCritterDialog(index: number) {
     setDeleteDialogOpen(true);
     setCritterToDelete(index);
@@ -37,7 +50,16 @@ export default function CritterGrid() {
     const updatedCritters = critters.filter((_, i) => i !== index);
     localStorage.setItem("critters", JSON.stringify(updatedCritters));
     setCritters(updatedCritters);
-    setCurrentPage(1);
+
+    // if current page becomes empty, go back 1 page
+    const newPaginatedCritters = updatedCritters.slice(
+      startIndex,
+      startIndex + CRITTERS_PER_PAGE,
+    );
+    if (newPaginatedCritters.length === 0 && currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+      router.push(`?page=${currentPage - 1}`);
+    }
   }
 
   function dynamicFontSize(length: number) {
@@ -48,8 +70,6 @@ export default function CritterGrid() {
 
   const totalPages = Math.ceil(critters.length / CRITTERS_PER_PAGE);
   const startIndex = (currentPage - 1) * CRITTERS_PER_PAGE;
-  const endIndex = startIndex + CRITTERS_PER_PAGE;
-  const paginatedCritters = critters.slice(startIndex, endIndex);
 
   return (
     <>
@@ -155,23 +175,25 @@ export default function CritterGrid() {
       </div>
       {totalPages > 1 && (
         <div className={sty.pagination}>
-          <button
+          <Link
+            href={currentPage - 1 <= 1 ? "?" : `?page=${currentPage - 1}`}
             onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-            disabled={currentPage === 1}
+            className={`button ${currentPage === 1 ? "visibility-hidden" : ""}`}
           >
             ◀ Prev
-          </button>
+          </Link>
           <span>
             {currentPage} of {totalPages}
           </span>
-          <button
+          <Link
+            href={`?page=${currentPage + 1}`}
             onClick={() =>
               setCurrentPage((prev) => Math.min(totalPages, prev + 1))
             }
-            disabled={currentPage === totalPages}
+            className={`button ${currentPage === totalPages ? "visibility-hidden" : ""}`}
           >
             Next ▶
-          </button>
+          </Link>
         </div>
       )}
     </>

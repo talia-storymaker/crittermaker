@@ -41,8 +41,9 @@ export default function RootLayout({
             <footer className="subtle-bg less-subtle-bg">
               <div className="footer-inner">
                 <p>
-                  Create your own 3D animal villagers in the Animal Crossing New
-                  Horizons style, right here in your browser!
+                  Create your own 3D anthropomorphic animal characters in the
+                  Animal Crossing New Horizons style, right here in your
+                  browser!
                 </p>
                 <p>
                   This is a fan project and not endorsed by Nintendo. No
