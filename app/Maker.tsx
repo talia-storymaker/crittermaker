@@ -130,7 +130,7 @@ const Maker: React.FC = () => {
   return (
     <div className="page">
       <main className="main">
-        <h1>
+        <h1 className="width-protect">
           <div>3D CritterMaker</div>
           <div className="subtitle">aka Animal Crossing Villager NPC Maker</div>
         </h1>

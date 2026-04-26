@@ -89,6 +89,10 @@ h1 {
   font-weight: normal;
   font-size: 2.5rem;
   transform: scaleX(2);
+}
+
+.width-protect {
+  /* prevent wide titles from exceeding the edges on mobile */
   width: 50%;
 }
 
