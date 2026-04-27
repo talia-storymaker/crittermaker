@@ -169,6 +169,7 @@ const Maker: React.FC = () => {
             </small>
           </div>
           <form className={sty.controls}>
+            <h2 className="unimportant-heading">Customize</h2>
             <label>
               Name
               <input
@@ -197,6 +198,7 @@ const Maker: React.FC = () => {
               />
             </label>
             <section className={sty.variantsCategory}>
+              <h3 className="unimportant-heading">Face</h3>
               {currentFeatureTab === "eyes" ? (
                 <fieldset className={sty.variants}>
                   <legend>
@@ -272,6 +274,7 @@ const Maker: React.FC = () => {
               )}
             </section>
             <section className={sty.variantsCategory}>
+              <h3 className="unimportant-heading">Clothes</h3>
               {currentClothesTab === "tops" ? (
                 <fieldset className={sty.variants}>
                   <legend>

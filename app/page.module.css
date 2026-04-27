@@ -23,7 +23,7 @@
 
 .controls {
   background-color: var(--highlight);
-  color: #000;
+  color: var(--dark);
   border-radius: 1rem;
   padding: 1rem;
   display: flex;
@@ -35,6 +35,7 @@
   border-image-width: 1rem;
   border-image-outset: 0.425rem 0.355rem;
   border-image-repeat: round;
+  overflow: hidden;
 }
 
 :root:not(:has(input[aria-label*="Light Mode"]:checked)) {
