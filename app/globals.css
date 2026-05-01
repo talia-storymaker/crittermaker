@@ -78,7 +78,7 @@ footer {
   min-height: 70vh;
 }
 
-h1, h2, h3 {
+h1, .unimportant-heading {
   margin-bottom: 0.5rem;
   display: flex;
   flex-direction: column;
