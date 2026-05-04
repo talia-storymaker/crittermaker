@@ -1,5 +1,5 @@
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import { use, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import {
   EyeVariant,
@@ -163,7 +163,7 @@ function Critter({
         });
       }
     });
-  }, [mainColor, eyes, mouth, top]);
+  }, [mainColor, eyes, mouth, top, nose]);
 
   return (
     <group ref={groupRef} position={[0, -7.75, 0]} receiveShadow castShadow />
