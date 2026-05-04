@@ -116,6 +116,8 @@ h3.unimportant-heading {
 
 .width-protect {
   /* prevent wide titles from exceeding the edges on mobile */
+  /* compensates for transform: scaleX(2) */
+  /* sometimes does more harm than good, so only add it when needed */
   width: 50%;
 }
 
