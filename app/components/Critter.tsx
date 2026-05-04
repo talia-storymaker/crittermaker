@@ -1,13 +1,19 @@
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import { useEffect, useRef } from "react";
+import { use, useEffect, useRef } from "react";
 import * as THREE from "three";
-import { EyeVariant, MouthVariant, TopVariant } from "../critterConfig";
+import {
+  EyeVariant,
+  MouthVariant,
+  NoseVariant,
+  TopVariant,
+} from "../critterConfig";
 
 type Props = {
   mainColor?: string;
   eyes?: EyeVariant;
   mouth?: MouthVariant;
   top?: TopVariant;
+  nose?: NoseVariant;
 };
 
 function Critter({
@@ -15,6 +21,7 @@ function Critter({
   eyes = "tangy",
   mouth = "tangy",
   top = { name: "argyle-sweater", sleeves: "long", type: "shirt" },
+  nose = undefined,
 }: Props) {
   const groupRef = useRef<THREE.Group>(null);
 

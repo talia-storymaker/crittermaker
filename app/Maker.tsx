@@ -25,6 +25,7 @@ const Maker: React.FC = () => {
     eyes: "tangy",
     mouth: "tangy",
     top: critterConfig.tops.options[0],
+    nose: undefined,
   };
   const editing =
     !Number.isNaN(loadedCritterId || "") && loadedCritterId !== null;
@@ -43,6 +44,7 @@ const Maker: React.FC = () => {
             eyes: critters[index].eyes || "tangy",
             mouth: critters[index].mouth || "tangy",
             top: critters[index].top || critterConfig.tops.options[0],
+            nose: critters[index].nose || undefined,
           };
         }
       }
@@ -73,6 +75,7 @@ const Maker: React.FC = () => {
     }
   }, []);
 
+  const mainCanvas = useRef<HTMLCanvasElement>(null);
   const downloadLink = useRef<HTMLAnchorElement>(null);
 
   function saveCritter(as: boolean = false) {
@@ -85,6 +88,7 @@ const Maker: React.FC = () => {
           eyes: critter.eyes,
           mouth: critter.mouth,
           top: critter.top,
+          nose: critter.nose,
         };
       } else {
         critters.push({
@@ -93,6 +97,7 @@ const Maker: React.FC = () => {
           eyes: critter.eyes,
           mouth: critter.mouth,
           top: critter.top,
+          nose: critter.nose,
         });
       }
       localStorage.setItem("critters", JSON.stringify(critters));
@@ -112,7 +117,7 @@ const Maker: React.FC = () => {
   }
 
   function downloadImg() {
-    const canvas = document.querySelector("canvas");
+    const canvas = mainCanvas.current;
     if (canvas) {
       canvas.toBlob((blob) => {
         if (blob && downloadLink.current) {
@@ -137,6 +142,7 @@ const Maker: React.FC = () => {
         <div className={sty.critterContainer}>
           <div>
             <Canvas
+              ref={mainCanvas}
               gl={{ preserveDrawingBuffer: true }}
               className={sty.critter}
               style={{ width: "30rem", height: "35rem" }}
@@ -161,6 +167,7 @@ const Maker: React.FC = () => {
                   eyes={critter.eyes}
                   mouth={critter.mouth}
                   top={critter.top}
+                  nose={critter.nose || undefined}
                 />
               </Suspense>
             </Canvas>
