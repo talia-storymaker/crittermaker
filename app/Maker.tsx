@@ -12,6 +12,7 @@ import {
   TopVariant,
   critterConfig,
   CritterData,
+  NoseVariant,
 } from "./critterConfig";
 
 const Maker: React.FC = () => {
@@ -57,9 +58,9 @@ const Maker: React.FC = () => {
   const [showSavedStatus, setShowSavedStatus] = useState(false);
   const [showSavedAsStatus, setShowSavedAsStatus] = useState(false);
 
-  const [currentFeatureTab, setCurrentFeatureTab] = useState<"eyes" | "mouth">(
-    "eyes",
-  );
+  const [currentFeatureTab, setCurrentFeatureTab] = useState<
+    "eyes" | "mouth" | "nose"
+  >("eyes");
   const [currentClothesTab, setCurrentClothesTab] = useState("tops");
 
   useEffect(() => {
@@ -217,6 +218,12 @@ const Maker: React.FC = () => {
                   >
                     Mouth
                   </button>
+                  <button
+                    onClick={() => setCurrentFeatureTab("nose")}
+                    className={sty.tabButton}
+                  >
+                    Nose
+                  </button>
                   {critterConfig.eyes.options.map((option) => (
                     <label className="button" key={option}>
                       <input
@@ -254,6 +261,12 @@ const Maker: React.FC = () => {
                   >
                     Eyes
                   </button>
+                  <button
+                    onClick={() => setCurrentFeatureTab("nose")}
+                    className={sty.tabButton}
+                  >
+                    Nose
+                  </button>
                   {critterConfig.mouth.options.map((option) => (
                     <label className="button" key={option}>
                       <input
@@ -272,6 +285,63 @@ const Maker: React.FC = () => {
                         src={`/variant-icons/cat-mouths/mouth-${option}.png`}
                         title={option.charAt(0).toUpperCase() + option.slice(1)}
                         alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style mouth`}
+                      />
+                    </label>
+                  ))}
+                </fieldset>
+              ) : (
+                ""
+              )}
+              {currentFeatureTab === "nose" ? (
+                <fieldset className={sty.variants}>
+                  <legend>
+                    <span>Nose</span>
+                  </legend>
+                  <button
+                    onClick={() => setCurrentFeatureTab("eyes")}
+                    className={sty.tabButton}
+                  >
+                    Eyes
+                  </button>
+                  <button
+                    onClick={() => setCurrentFeatureTab("mouth")}
+                    className={sty.tabButton}
+                  >
+                    Mouth
+                  </button>
+                  <label className="button">
+                      <input
+                        type="radio"
+                        name="nose"
+                        value={undefined}
+                        checked={critter.nose === undefined}
+                        onChange={(e) =>
+                          setCritter((prev) => ({
+                            ...prev,
+                            nose: e.target.value as NoseVariant,
+                          }))
+                        }
+                      ></input>
+                      🚫
+                    </label>
+                  {critterConfig.nose.options.map((option) => (
+                    <label className="button" key={option}>
+                      <input
+                        type="radio"
+                        name="nose"
+                        value={option}
+                        checked={critter.nose === option}
+                        onChange={(e) =>
+                          setCritter((prev) => ({
+                            ...prev,
+                            nose: e.target.value as NoseVariant,
+                          }))
+                        }
+                      ></input>
+                      <img
+                        src={`/variant-icons/cat-noses/nose-${option}.png`}
+                        title={option.charAt(0).toUpperCase() + option.slice(1)}
+                        alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style nose`}
                       />
                     </label>
                   ))}

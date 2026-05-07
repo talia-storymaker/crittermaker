@@ -149,6 +149,7 @@ export default function CritterGrid() {
                           eyes={critter.eyes}
                           mouth={critter.mouth}
                           top={critter.top}
+                          nose={critter.nose || undefined}
                         />
                       </Suspense>
                     </Canvas>

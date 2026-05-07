@@ -57,7 +57,7 @@ export const critterConfig = {
   eyes: { label: "Eyes", options: catVillagers },
   mouth: { label: "Mouth", options: catVillagers },
   tops: { label: "Tops", options: acnhTops },
-  noses: { label: "Noses", options: ['kiki', 'mitzi', 'moe', 'raymond', 'rudy', 'tabby'], },
+  nose: { label: "Noses", options: ['kiki', 'mitzi', 'moe', 'raymond', 'rudy', 'tabby'], },
 } as const;
 
 export interface CritterData {
@@ -72,4 +72,4 @@ export interface CritterData {
 export type EyeVariant = (typeof critterConfig.eyes.options)[number];
 export type MouthVariant = (typeof critterConfig.mouth.options)[number];
 export type TopVariant = (typeof critterConfig.tops.options)[number];
-export type NoseVariant = (typeof critterConfig.noses.options)[number];
+export type NoseVariant = (typeof critterConfig.nose.options)[number];

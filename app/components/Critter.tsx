@@ -112,12 +112,22 @@ function Critter({
               map.colorSpace = THREE.SRGBColorSpace;
             }
 
+            const isEyeMesh = child.name === "Body__mEye";
+            let overlayTexture = null;
+            if (isEyeMesh && nose) {
+              overlayTexture = new THREE.TextureLoader().load(
+                `/models/cat/extra-textures/noses/${nose}.png`,
+              );
+            }
+
             const material = new THREE.ShaderMaterial({
               uniforms: {
                 baseColor: { value: new THREE.Color(mainColor) },
                 map: { value: map },
                 normalMap: { value: normalMap },
                 hasNormalMap: { value: Boolean(normalMap) },
+                overlayMap: { value: overlayTexture || null },
+                useOverlay: { value: Boolean(overlayTexture) },
               },
               vertexShader: `
                 varying vec2 vUv;
@@ -134,6 +144,8 @@ function Critter({
                 uniform vec3 baseColor;
                 uniform sampler2D map;
                 uniform sampler2D normalMap;
+                uniform sampler2D overlayMap;
+                uniform bool useOverlay;
                 uniform bool hasNormalMap;
                 varying vec2 vUv;
                 varying vec3 vNormal;
@@ -141,6 +153,12 @@ function Critter({
                 void main() {
                   vec4 tex = texture2D(map, vUv);
                   vec3 color = mix(baseColor, tex.rgb, tex.a);
+                  if (useOverlay) {
+                  vec4 overlay = texture2D(overlayMap, vUv);
+
+                  // standard alpha blend
+                  color = mix(color, overlay.rgb, overlay.a);
+                }
                   vec3 normal = vNormal;
                   if (hasNormalMap) {
                     vec3 normalTex = texture2D(normalMap, vUv).rgb * 2.0 - 1.0;

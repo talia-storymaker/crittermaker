@@ -66,6 +66,10 @@
   padding: 0.15rem 0.8rem;
 }
 
+.tabButton:nth-of-type(2) {
+  left: calc(10rem + 0.6rem);
+}
+
 .variants legend {
   width: 5rem;
   background-color: var(--highlight-light);
