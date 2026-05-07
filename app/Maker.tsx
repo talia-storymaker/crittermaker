@@ -339,7 +339,7 @@ const Maker: React.FC = () => {
                         }
                       ></input>
                       <img
-                        src={`/variant-icons/cat-noses/nose-${option}.png`}
+                        src={`/variant-icons/cat-noses/${option}.png`}
                         title={option.charAt(0).toUpperCase() + option.slice(1)}
                         alt={`${option.charAt(0).toUpperCase() + option.slice(1)}-style nose`}
                       />

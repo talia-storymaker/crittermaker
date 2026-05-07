@@ -117,6 +117,9 @@ function Critter({
             if (isEyeMesh && nose) {
               overlayTexture = new THREE.TextureLoader().load(
                 `/models/cat/extra-textures/noses/${nose}.png`,
+                (texture) => {
+                  texture.colorSpace = THREE.SRGBColorSpace;
+                }
               );
             }
 
